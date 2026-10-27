@@ -195,3 +195,32 @@
     padding: 1.4rem;
   }
 }
+
+@media (max-width: 420px) {
+  .topbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .topbar p {
+    font-size: 1rem;
+  }
+
+  .topbar nav {
+    width: auto;
+    flex-wrap: nowrap;
+    gap: 0.45rem;
+  }
+
+  .topbar nav a:not(.navCta) {
+    display: none;
+  }
+
+  .topbar .navCta {
+    font-size: 0.82rem;
+    padding: 0.32rem 0.62rem;
+  }
+}
