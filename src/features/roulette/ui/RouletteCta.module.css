@@ -42,6 +42,15 @@
   color: #e5eeff;
 }
 
+.depositForm input[aria-invalid='true'] {
+  border-color: #ff8a8a;
+}
+
+.fieldError {
+  color: #ffd1d1;
+  font-size: 0.82rem;
+}
+
 .actions {
   display: flex;
   gap: 0.8rem;

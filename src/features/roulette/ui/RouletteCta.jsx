@@ -10,6 +10,7 @@ const HISTORY_SIZE = 6
 
 export function RouletteCta({ skins }) {
   const [depositInput, setDepositInput] = useState('50')
+  const [depositError, setDepositError] = useState('')
   const [balance, setBalance] = useState(0)
   const [message, setMessage] = useState('Deposite saldo para começar a girar.')
   const [pendingSkin, setPendingSkin] = useState(null)
@@ -38,10 +39,13 @@ export function RouletteCta({ skins }) {
 
     const parsed = Number.parseFloat(depositInput.replace(',', '.'))
     if (Number.isNaN(parsed) || parsed <= 0) {
-      setMessage('Informe um valor válido para o depósito.')
+      const errorMessage = 'Informe um valor de depósito maior que R$ 0,00.'
+      setDepositError(errorMessage)
+      setMessage(errorMessage)
       return
     }
 
+    setDepositError('')
     setBalance((prev) => prev + parsed)
     setMessage(`Depósito confirmado: R$ ${toMoney(parsed)}.`)
     setDepositInput('')
@@ -129,20 +133,32 @@ export function RouletteCta({ skins }) {
             <p>
               Saldo atual: <strong>R$ {toMoney(balance)}</strong>
             </p>
-            <form onSubmit={handleDeposit} className={styles.depositForm}>
+            <form onSubmit={handleDeposit} className={styles.depositForm} noValidate>
               <input
                 type="number"
                 min="1"
                 step="0.01"
                 value={depositInput}
-                onChange={(event) => setDepositInput(event.target.value)}
+                onChange={(event) => {
+                  setDepositInput(event.target.value)
+                  if (depositError) {
+                    setDepositError('')
+                  }
+                }}
                 placeholder="Valor do depósito"
                 aria-label="Valor do depósito"
+                aria-invalid={depositError ? 'true' : 'false'}
+                aria-describedby={depositError ? 'deposit-error' : undefined}
               />
               <button type="submit" disabled={isSpinning}>
                 Depositar
               </button>
             </form>
+            {depositError && (
+              <small id="deposit-error" role="alert" className={styles.fieldError}>
+                {depositError}
+              </small>
+            )}
           </div>
 
           <div className={styles.actions}>
