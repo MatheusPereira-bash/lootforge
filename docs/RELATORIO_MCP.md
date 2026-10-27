@@ -42,14 +42,9 @@ Escolhemos Playwright MCP porque o fluxo principal do LootForge depende de inter
 
 ## 4. Como o MCP contribuiu
 
-O MCP contribuiu em quatro pontos objetivos:
+O ponto mais importante foi o bug do botão `Girar` habilitado com resgate pendente. Esse problema apareceu na auditoria interativa, quando executamos o fluxo real de jogar (depositar, girar até ganhar uma skin e tentar continuar). Só lendo o código, esse encadeamento de estados era menos óbvio.
 
-1. Executou os cenários de roleta: depósito inválido, giro sem saldo, giro com saldo, resgate sem saldo e resgate com saldo.
-2. Detectou e confirmou o bug de estado (giro habilitado com resgate pendente) e depois validou a correção (`spinDisabledWithPending: true`).
-3. Validou responsividade em 375/768/1280 com capturas antes/depois.
-4. Validou navegação por teclado e foco visível (skip link, menu, CTA e input com `outline` aplicado).
-
-No total, geramos **11 screenshots** para evidências (`docs/evidencias/antes` e `docs/evidencias/depois`).
+Depois de corrigir, rodamos um script de verificação via Playwright para validar objetivamente o estado bloqueado, retornando `spinDisabledWithPending: true`. Além disso, o MCP foi usado para repetir os cenários de roleta, validar navegação por teclado e gerar as capturas antes/depois para comparação visual.
 
 Comparações antes/depois:
 
@@ -130,3 +125,8 @@ Com o servidor rodando em `http://localhost:5173`, repetir auditoria manual:
 - `6610e89` - Ajusta header para mobile 375px
 - `b9e2284` - Reequilibra grids no breakpoint tablet
 - `2e337a3` - Inclui skip link e reforços de acessibilidade
+- `0521d17` - Adiciona evidências e relatório da auditoria
+- `5c0b154` - Corrige acentuação em textos
+- `f28cdc0` - Ignora logs MCP e versiona configuração
+- `7a64095` - Remove duplicação do erro de depósito
+- `d374319` - Atualiza evidências de viewport
