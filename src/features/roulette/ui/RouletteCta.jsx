@@ -29,6 +29,7 @@ export function RouletteCta({ skins }) {
   useEffect(() => () => clearTimeout(timerRef.current), [])
 
   const canSpin = balance >= SPIN_COST && !isSpinning && !pendingSkin
+  const hasPendingPayment = Boolean(pendingSkin)
 
   const claimedLabel = claimedSkins.length
     ? claimedSkins.map((skin) => skin.name).join(' | ')
@@ -162,7 +163,17 @@ export function RouletteCta({ skins }) {
           </div>
 
           <div className={styles.actions}>
-            <button type="button" onClick={handleSpin} disabled={isSpinning}>
+            <button
+              type="button"
+              onClick={handleSpin}
+              disabled={isSpinning || hasPendingPayment}
+              title={
+                hasPendingPayment
+                  ? 'Finalize o pagamento do resgate para liberar novos giros.'
+                  : undefined
+              }
+              aria-describedby={hasPendingPayment ? 'spin-lock-reason' : undefined}
+            >
               {isSpinning ? 'Girando...' : `Girar (R$ ${toMoney(SPIN_COST)})`}
             </button>
             {pendingSkin && (
@@ -176,6 +187,11 @@ export function RouletteCta({ skins }) {
               </button>
             )}
           </div>
+          {hasPendingPayment && (
+            <small id="spin-lock-reason" className={styles.hint}>
+              Giro bloqueado ate finalizar o pagamento do resgate.
+            </small>
+          )}
 
           <div className={styles.feedback} aria-live="polite">
             <p>{message}</p>
