@@ -196,6 +196,13 @@
   }
 }
 
+@media (min-width: 641px) and (max-width: 980px) {
+  .gridBenefits,
+  .skinsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 420px) {
   .topbar {
     flex-direction: row;
