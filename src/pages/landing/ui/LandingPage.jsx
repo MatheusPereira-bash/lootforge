@@ -15,6 +15,10 @@ import styles from './LandingPage.module.css'
 export function LandingPage() {
   return (
     <>
+      <a href="#main-content" className={styles.skipLink}>
+        Pular para o conteúdo
+      </a>
+
       <header className={styles.topbar}>
         <p>{productInfo.brand}</p>
         <nav>
@@ -28,7 +32,7 @@ export function LandingPage() {
         </nav>
       </header>
 
-      <main className={styles.page}>
+      <main id="main-content" tabIndex={-1} className={styles.page}>
         <section className={styles.hero}>
           <p className={styles.kicker}>{productInfo.tagline}</p>
           <h1>{productInfo.brand}</h1>

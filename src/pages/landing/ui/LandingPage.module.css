@@ -1,3 +1,21 @@
+.skipLink {
+  position: fixed;
+  top: -120px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.65rem 0.95rem;
+  border-radius: 10px;
+  background: #ffd47a;
+  color: #13203d;
+  text-decoration: none;
+  font-weight: 700;
+  transition: top 0.2s ease;
+}
+
+.skipLink:focus-visible {
+  top: 1rem;
+}
+
 .topbar {
   position: sticky;
   top: 0;

@@ -209,3 +209,15 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .wheel {
+    transition-duration: 0.8s !important;
+    transition-timing-function: linear;
+  }
+
+  .actions button,
+  .depositForm button {
+    transition: none;
+  }
+}
