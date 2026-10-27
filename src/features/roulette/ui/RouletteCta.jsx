@@ -189,7 +189,7 @@ export function RouletteCta({ skins }) {
           </div>
           {hasPendingPayment && (
             <small id="spin-lock-reason" className={styles.hint}>
-              Giro bloqueado ate finalizar o pagamento do resgate.
+              Giro bloqueado até finalizar o pagamento do resgate.
             </small>
           )}
 

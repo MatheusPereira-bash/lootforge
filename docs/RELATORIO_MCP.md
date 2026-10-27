@@ -2,23 +2,23 @@
 
 ## 1. O que foi analisado e melhorado
 
-Analisamos a landing page do LootForge com foco em tres frentes: funcionamento da roleta (depositar, girar e pagar resgate), responsividade (375px, 768px e 1280px) e acessibilidade (estrutura semantica, foco por teclado e feedback para erros).
+Analisamos a landing page do LootForge com foco em três frentes: funcionamento da roleta (depositar, girar e pagar resgate), responsividade (375px, 768px e 1280px) e acessibilidade (estrutura semântica, foco por teclado e feedback para erros).
 
-| Problema | Severidade | Correcao aplicada | Arquivos alterados |
+| Problema | Severidade | Correção aplicada | Arquivos alterados |
 | --- | --- | --- | --- |
-| Deposito invalido sem feedback visivel | Alto | Adicionamos validacao explicita para valor vazio/zero/negativo, `noValidate` no form para evitar bloqueio nativo e mensagem com `role="alert"` + `aria-invalid`. | `src/features/roulette/ui/RouletteCta.jsx`, `src/features/roulette/ui/RouletteCta.module.css` |
-| Botao Girar habilitado com resgate pendente | Medio | Desabilitamos o botao de giro quando existe skin pendente, com explicacao via `title`, `aria-describedby` e texto de apoio visivel. | `src/features/roulette/ui/RouletteCta.jsx` |
-| Header quebrando em 375px | Medio | Criamos layout compacto para mobile estreito (ocultando links secundarios e mantendo CTA principal sem quebra ruim). | `src/pages/landing/ui/LandingPage.module.css` |
-| Grids com item orfao em 768px | Baixo | Ajustamos breakpoint intermediario para 2 colunas em beneficios e skins. | `src/pages/landing/ui/LandingPage.module.css` |
-| Falta de skip link | Baixo (A11y) | Incluimos link "Pular para o conteudo" com foco visivel apontando para o `<main>`. | `src/pages/landing/ui/LandingPage.jsx`, `src/pages/landing/ui/LandingPage.module.css` |
-| Extra A11y: foco pouco visivel | Extra | Adicionamos `:focus-visible` consistente para links, botoes, input e summary. | `src/app/styles/global.css` |
-| Extra A11y: reducao de movimento | Extra | Adicionamos regra `prefers-reduced-motion` para encurtar animacao de giro e remover transicoes de botoes no componente da roleta. | `src/features/roulette/ui/RouletteCta.module.css` |
+| Depósito inválido sem feedback visível | Alto | Adicionamos validação explícita para valor vazio/zero/negativo, `noValidate` no form para evitar bloqueio nativo e mensagem com `role="alert"` + `aria-invalid`. | `src/features/roulette/ui/RouletteCta.jsx`, `src/features/roulette/ui/RouletteCta.module.css` |
+| Botão Girar habilitado com resgate pendente | Médio | Desabilitamos o botão de giro quando existe skin pendente, com explicação via `title`, `aria-describedby` e texto de apoio visível. | `src/features/roulette/ui/RouletteCta.jsx` |
+| Header quebrando em 375px | Médio | Criamos layout compacto para mobile estreito (ocultando links secundários e mantendo CTA principal sem quebra ruim). | `src/pages/landing/ui/LandingPage.module.css` |
+| Grids com item órfão em 768px | Baixo | Ajustamos breakpoint intermediário para 2 colunas em benefícios e skins. | `src/pages/landing/ui/LandingPage.module.css` |
+| Falta de skip link | Baixo (A11y) | Incluímos link "Pular para o conteúdo" com foco visível apontando para o `<main>`. | `src/pages/landing/ui/LandingPage.jsx`, `src/pages/landing/ui/LandingPage.module.css` |
+| Extra A11y: foco pouco visível | Extra | Adicionamos `:focus-visible` consistente para links, botões, input e summary. | `src/app/styles/global.css` |
+| Extra A11y: redução de movimento | Extra | Adicionamos regra `prefers-reduced-motion` para encurtar animação de giro e remover transições de botões no componente da roleta. | `src/features/roulette/ui/RouletteCta.module.css` |
 
 ## 2. MCP utilizado
 
-Utilizamos o **Playwright MCP** para executar os testes no navegador real e gerar evidencias em imagem.
+Utilizamos o **Playwright MCP** para executar os testes no navegador real e gerar evidências em imagem.
 
-Trecho de configuracao no OpenCode (`opencode.json`):
+Trecho de configuração no OpenCode (`opencode.json`):
 
 ```json
 {
@@ -38,20 +38,20 @@ Trecho de configuracao no OpenCode (`opencode.json`):
 
 ## 3. Por que foi escolhido
 
-Escolhemos Playwright MCP porque o fluxo principal do LootForge depende de interacoes de usuario em sequencia (depositar, girar, ganhar/perder e pagar resgate). So lendo codigo seria facil perder comportamentos de estado em tempo real, como mensagens na tela, habilitacao/desabilitacao de botoes e transicoes entre estados. Com o navegador real, conseguimos validar os fluxos do jeito que o jogador usa de fato, alem de testar breakpoints e navegar por teclado na propria interface final.
+Escolhemos Playwright MCP porque o fluxo principal do LootForge depende de interações de usuário em sequência (depositar, girar, ganhar/perder e pagar resgate). Só lendo código seria fácil perder comportamentos de estado em tempo real, como mensagens na tela, habilitação/desabilitação de botões e transições entre estados. Com o navegador real, conseguimos validar os fluxos do jeito que o jogador usa de fato, além de testar breakpoints e navegar por teclado na própria interface final.
 
 ## 4. Como o MCP contribuiu
 
 O MCP contribuiu em quatro pontos objetivos:
 
-1. Executou os cenarios de roleta: deposito invalido, giro sem saldo, giro com saldo, resgate sem saldo e resgate com saldo.
-2. Detectou e confirmou o bug de estado (giro habilitado com resgate pendente) e depois validou a correcao (`spinDisabledWithPending: true`).
+1. Executou os cenários de roleta: depósito inválido, giro sem saldo, giro com saldo, resgate sem saldo e resgate com saldo.
+2. Detectou e confirmou o bug de estado (giro habilitado com resgate pendente) e depois validou a correção (`spinDisabledWithPending: true`).
 3. Validou responsividade em 375/768/1280 com capturas antes/depois.
-4. Validou navegacao por teclado e foco visivel (skip link, menu, CTA e input com `outline` aplicado).
+4. Validou navegação por teclado e foco visível (skip link, menu, CTA e input com `outline` aplicado).
 
-No total, geramos **11 screenshots** para evidencias (`docs/evidencias/antes` e `docs/evidencias/depois`).
+No total, geramos **11 screenshots** para evidências (`docs/evidencias/antes` e `docs/evidencias/depois`).
 
-Comparacoes antes/depois:
+Comparações antes/depois:
 
 ### Responsividade
 
@@ -67,29 +67,29 @@ Comparacoes antes/depois:
 ![antes 1280](evidencias/antes/audit-landing-1280.png)  
 ![depois 1280](evidencias/depois/audit-landing-1280.png)
 
-### Fluxo de deposito invalido
+### Fluxo de depósito inválido
 
-![antes deposito invalido](evidencias/antes/bug-deposito-invalido-antes.png)  
-![depois deposito invalido](evidencias/depois/bug-deposito-invalido-depois.png)
+![antes depósito inválido](evidencias/antes/bug-deposito-invalido-antes.png)  
+![depois depósito inválido](evidencias/depois/bug-deposito-invalido-depois.png)
 
 ### Fluxo com resgate pendente
 
 ![antes giro pendente](evidencias/antes/bug-girar-pendente-antes.png)  
 ![depois giro pendente](evidencias/depois/bug-girar-pendente-depois.png)
 
-### Skip link visivel
+### Skip link visível
 
-![skip link visivel](evidencias/depois/skip-link-visivel-depois.png)
+![skip link visível](evidencias/depois/skip-link-visivel-depois.png)
 
-## 5. Avaliacao critica
+## 5. Avaliação crítica
 
-O MCP ajudou de verdade a validar estados dinamicos da roleta e comportamentos responsivos que nao ficam evidentes em revisao estatica de codigo. Tambem foi util para confirmar foco por teclado e verificar a arvore de acessibilidade basica.
+O MCP ajudou de verdade a validar estados dinâmicos da roleta e comportamentos responsivos que não ficam evidentes em revisão estática de código. Também foi útil para confirmar foco por teclado e verificar a árvore de acessibilidade básica.
 
-Limites e pontos que ele nao cobriu completamente:
+Limites e pontos que ele não cobriu completamente:
 
-- Nao fizemos medicao formal de contraste (WCAG) com ferramenta dedicada.
-- Nao executamos teste com leitor de tela real (NVDA/JAWS/VoiceOver), apenas validacao por snapshot e atributos ARIA.
-- O sorteio da roleta e aleatorio; por isso, os testes de "ganhar skin" exigiram repeticao automatizada para chegar ao estado de resgate.
+- Não fizemos medição formal de contraste (WCAG) com ferramenta dedicada.
+- Não executamos teste com leitor de tela real (NVDA/JAWS/VoiceOver), apenas validação por snapshot e atributos ARIA.
+- O sorteio da roleta é aleatório; por isso, os testes de "ganhar skin" exigiram repetição automatizada para chegar ao estado de resgate.
 
 ## 6. Como reproduzir
 
@@ -100,12 +100,12 @@ npm run dev
 
 Com o servidor rodando em `http://localhost:5173`, repetir auditoria manual:
 
-1. Testar deposito invalido (`0`, vazio ou negativo) e conferir mensagem.
+1. Testar depósito inválido (`0`, vazio ou negativo) e conferir mensagem.
 2. Testar giro sem saldo.
-3. Depositar saldo e girar ate gerar premio.
-4. Com premio pendente, confirmar que `Girar` fica desabilitado.
+3. Depositar saldo e girar até gerar prêmio.
+4. Com prêmio pendente, confirmar que `Girar` fica desabilitado.
 5. Testar resgate sem saldo e depois com saldo.
-6. Validar Tab no inicio para exibir "Pular para o conteudo".
+6. Validar Tab no início para exibir "Pular para o conteúdo".
 7. Capturar telas em 375, 768 e 1280.
 
 ## Arquivos criados
@@ -125,8 +125,8 @@ Com o servidor rodando em `http://localhost:5173`, repetir auditoria manual:
 
 ## Resumo dos commits
 
-- `e2e6f66` - Exibe erro de deposito invalido
+- `e2e6f66` - Exibe erro de depósito inválido
 - `28fbe1a` - Bloqueia giro com resgate pendente
 - `6610e89` - Ajusta header para mobile 375px
 - `b9e2284` - Reequilibra grids no breakpoint tablet
-- `2e337a3` - Inclui skip link e reforcos de acessibilidade
+- `2e337a3` - Inclui skip link e reforços de acessibilidade

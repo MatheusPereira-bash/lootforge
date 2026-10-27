@@ -10,7 +10,7 @@ function toMoney(value) {
 export function FakeWheelCta({ skins }) {
   const [depositInput, setDepositInput] = useState('20')
   const [balance, setBalance] = useState(0)
-  const [message, setMessage] = useState('Deposite saldo para iniciar a simulacao.')
+  const [message, setMessage] = useState('Deposite saldo para iniciar a simulação.')
   const [pendingSkin, setPendingSkin] = useState(null)
   const [claimedSkins, setClaimedSkins] = useState([])
 
@@ -30,18 +30,18 @@ export function FakeWheelCta({ skins }) {
 
     const parsed = Number.parseFloat(depositInput)
     if (Number.isNaN(parsed) || parsed <= 0) {
-      setMessage('Informe um valor valido para deposito ficticio.')
+      setMessage('Informe um valor válido para depósito fictício.')
       return
     }
 
     setBalance((prev) => prev + parsed)
-    setMessage(`Deposito ficticio confirmado: R$ ${toMoney(parsed)}.`)
+    setMessage(`Depósito fictício confirmado: R$ ${toMoney(parsed)}.`)
     setDepositInput('')
   }
 
   const handleSpin = () => {
     if (hasPendingPayment) {
-      setMessage('Voce ja ganhou uma skin. Pague o resgate antes de girar novamente.')
+      setMessage('Você já ganhou uma skin. Pague o resgate antes de girar novamente.')
       return
     }
 
@@ -61,7 +61,7 @@ export function FakeWheelCta({ skins }) {
     const selectedSkin = skins[Math.floor(Math.random() * skins.length)]
     setPendingSkin({ ...selectedSkin, paid: false })
     setMessage(
-      `Parabens? Voce ganhou ${selectedSkin.name}, mas precisa pagar R$ ${toMoney(selectedSkin.price)} para resgatar.`,
+      `Parabéns? Você ganhou ${selectedSkin.name}, mas precisa pagar R$ ${toMoney(selectedSkin.price)} para resgatar.`,
     )
   }
 
@@ -78,15 +78,15 @@ export function FakeWheelCta({ skins }) {
     setBalance((prev) => prev - pendingSkin.price)
     setClaimedSkins((prev) => [...prev, pendingSkin])
     setPendingSkin(null)
-    setMessage('Pagamento ficticio aprovado. Skin adicionada ao inventario de teste!')
+    setMessage('Pagamento fictício aprovado. Skin adicionada ao inventário de teste!')
   }
 
   return (
     <section className={styles.cta} id="girar">
-      <h2>Teste agora a roleta ficticia</h2>
+      <h2>Teste agora a roleta fictícia</h2>
       <p>
         Cada giro custa <strong>R$ {toMoney(SPIN_COST)}</strong>. Se ganhar skin,
-        o resgate e cobrado separadamente.
+         o resgate é cobrado separadamente.
       </p>
 
       <div className={styles.walletBox}>
@@ -100,7 +100,7 @@ export function FakeWheelCta({ skins }) {
             step="0.01"
             value={depositInput}
             onChange={(event) => setDepositInput(event.target.value)}
-            placeholder="Valor para deposito"
+            placeholder="Valor para depósito"
           />
           <button type="submit">Depositar</button>
         </form>
@@ -120,10 +120,10 @@ export function FakeWheelCta({ skins }) {
       <div className={styles.feedback}>
         <p>{message}</p>
         <p>
-          <strong>Inventario ficticio:</strong> {claimedLabel}
+          <strong>Inventário fictício:</strong> {claimedLabel}
         </p>
         <small>
-          Simulacao academica. Nenhum pagamento real e processado.
+          Simulação acadêmica. Nenhum pagamento real é processado.
         </small>
       </div>
     </section>
