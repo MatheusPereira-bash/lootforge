@@ -42,7 +42,6 @@ export function RouletteCta({ skins }) {
     if (Number.isNaN(parsed) || parsed <= 0) {
       const errorMessage = 'Informe um valor de depósito maior que R$ 0,00.'
       setDepositError(errorMessage)
-      setMessage(errorMessage)
       return
     }
 
